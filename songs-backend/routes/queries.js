@@ -1,11 +1,9 @@
 const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'me',
-  host: 'localhost',
-  database: 'api',
-  password: 'password',
-  port: 5432,
-})
+const database = require('../database.json')
+
+const env = process.env.NODE_ENV || 'dev'
+const settings = database[env]
+const pool = new Pool(settings)
 
 
 
