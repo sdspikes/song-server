@@ -18,12 +18,14 @@ const getSongs = (request, response) => {
 
 const getSongById = (request, response) => {
   const id = parseInt(request.params.id)
+  if (!id || id === NaN)
+    return
 
   pool.query('SELECT * FROM songs WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    response.status(200).json(results.rows[0])
   })
 }
 
